@@ -1,6 +1,7 @@
+// src/components/WalletConnection.tsx
 import * as React from 'react'
 import { useWallet } from '@solana/wallet-adapter-react'
-import { ChevronDown, Wallet } from 'lucide-react'
+import { ChevronDown, Wallet, LogOut, Settings, History } from 'lucide-react'
 import { PublicKey } from '@solana/web3.js'
 import { WalletModal } from './WalletModal'
 
@@ -38,8 +39,7 @@ export const WalletConnection: React.FC = () => {
             <Wallet className="w-4 h-4" />
             {truncatePublicKey(publicKey)}
             <ChevronDown
-              className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''
-                }`}
+              className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
             />
           </button>
 
@@ -49,11 +49,36 @@ export const WalletConnection: React.FC = () => {
                 <li>
                   <button
                     onClick={() => {
+                      console.log('Transaction History clicked')
+                      setIsDropdownOpen(false)
+                    }}
+                    className="w-full px-4 py-2 text-left hover:bg-base-300 flex items-center gap-2"
+                  >
+                    <History className="w-4 h-4" />
+                    Transactions
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      console.log('Settings clicked')
+                      setIsDropdownOpen(false)
+                    }}
+                    className="w-full px-4 py-2 text-left hover:bg-base-300 flex items-center gap-2"
+                  >
+                    <Settings className="w-4 h-4" />
+                    Settings
+                  </button>
+                </li>
+                <li className="border-t border-base-300">
+                  <button
+                    onClick={() => {
                       disconnect()
                       setIsDropdownOpen(false)
                     }}
-                    className="w-full px-4 py-2 text-left text-error hover:bg-base-300"
+                    className="w-full px-4 py-2 text-left text-error hover:bg-base-300 flex items-center gap-2"
                   >
+                    <LogOut className="w-4 h-4" />
                     Disconnect
                   </button>
                 </li>
@@ -64,7 +89,7 @@ export const WalletConnection: React.FC = () => {
       ) : (
         <button
           onClick={() => setIsWalletModalOpen(true)}
-          className="btn btn-sm btn-primary flex items-center gap-2"
+          className="btn btn-sm btn-outline flex items-center gap-2"
         >
           <Wallet className="w-4 h-4" />
           Connect Wallet

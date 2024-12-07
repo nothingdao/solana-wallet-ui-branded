@@ -1,3 +1,4 @@
+// src/components/WalletModal.tsx
 import * as React from 'react'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { X } from 'lucide-react'
@@ -15,7 +16,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => 
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-base-200 rounded-xl p-6 max-w-sm w-full mx-4">
+      <div className="bg-base-200 p-6 max-w-sm w-full mx-4">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-xl font-bold">Connect Wallet</h3>
           <button
@@ -34,7 +35,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => 
                 select(wallet.adapter.name)
                 onClose()
               }}
-              className="w-full bg-base-300 hover:bg-base-100 px-4 py-3 rounded-xl flex items-center justify-between"
+              className="w-full bg-base-300 hover:bg-base-100 px-4 py-3 flex items-center justify-between"
               disabled={wallet.readyState === WalletReadyState.Unsupported}
             >
               <span className="flex items-center gap-3">

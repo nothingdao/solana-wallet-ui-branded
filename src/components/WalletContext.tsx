@@ -13,7 +13,6 @@ interface WalletContextProviderProps {
 
 export const WalletContextProvider: FC<WalletContextProviderProps> = ({
   children,
-  network = WalletAdapterNetwork.Devnet,
   endpoint = clusterApiUrl(WalletAdapterNetwork.Devnet)
 }) => {
   const wallets = useMemo(

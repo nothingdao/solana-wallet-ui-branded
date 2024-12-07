@@ -26,13 +26,13 @@ export default {
           "error": "#EF4444",            // Error red
 
           ".btn": {
-            "border-radius": "0.5rem",    // Rounded buttons
+            "border-radius": "0.1rem",    // Rounded buttons
           },
 
           ".card": {
             "background": "#FFFFFF",      // Card background
             "box-shadow": "0 4px 6px -1px rgb(0 0 0 / 0.1)",
-            "border-radius": "0.75rem",   // Rounded cards
+            "border-radius": "0.1rem",   // Rounded cards
           },
         },
         dark: {
@@ -49,13 +49,13 @@ export default {
           "error": "#EF4444",            // Error red
 
           ".btn": {
-            "border-radius": "0.5rem",    // Rounded buttons
+            "border-radius": "0.1rem",    // Rounded buttons
           },
 
           ".card": {
             "background": "#1A1A1A",      // Card background
             "box-shadow": "0 4px 6px -1px rgb(0 0 0 / 0.3)",
-            "border-radius": "0.75rem",   // Rounded cards
+            "border-radius": "0.1rem",   // Rounded cards
           },
         },
       },
