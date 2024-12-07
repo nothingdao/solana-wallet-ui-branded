@@ -20,6 +20,11 @@ npx create-solana-dapp@latest --template nothingdao/solana-wallet-ui-branded
 
 This will create a new project with all dependencies installed and ready to run.
 
+Made possible by the excellent work from:
+
+- [create-solana-dapp](https://github.com/solana-developers/create-solana-dapp) by [@solana_devs](https://twitter.com/solana_devs)
+- [Solana Developers](https://github.com/solana-developers)
+
 ### Option 2: Clone and Run
 
 If you want to run this repo directly:
