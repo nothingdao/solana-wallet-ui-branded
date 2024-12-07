@@ -16,7 +16,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => 
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-base-200 p-6 max-w-sm w-full mx-4">
+      <div className="bg-base-200 rounded-lg p-6 max-w-sm w-full mx-4">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-xl font-bold">Connect Wallet</h3>
           <button
@@ -27,7 +27,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => 
           </button>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-3">
           {wallets.map((wallet) => (
             <button
               key={wallet.adapter.name}
@@ -35,22 +35,24 @@ export const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose }) => 
                 select(wallet.adapter.name)
                 onClose()
               }}
-              className="w-full bg-base-300 hover:bg-base-100 px-4 py-3 flex items-center justify-between"
               disabled={wallet.readyState === WalletReadyState.Unsupported}
+              className="wallet-btn w-full group"
             >
-              <span className="flex items-center gap-3">
-                {wallet.adapter.icon && (
-                  <img
-                    src={wallet.adapter.icon}
-                    alt={`${wallet.adapter.name} icon`}
-                    className="w-6 h-6"
-                  />
+              <div className="flex items-center justify-between w-full p-3">
+                <span className="flex items-center gap-3">
+                  {wallet.adapter.icon && (
+                    <img
+                      src={wallet.adapter.icon}
+                      alt={`${wallet.adapter.name} icon`}
+                      className="w-6 h-6"
+                    />
+                  )}
+                  <span className="font-semibold">{wallet.adapter.name}</span>
+                </span>
+                {wallet.readyState === WalletReadyState.Installed && (
+                  <span className="badge badge-success gap-1">Installed</span>
                 )}
-                <span>{wallet.adapter.name}</span>
-              </span>
-              {wallet.readyState === WalletReadyState.Installed && (
-                <span className="badge badge-success gap-1">Installed</span>
-              )}
+              </div>
             </button>
           ))}
         </div>

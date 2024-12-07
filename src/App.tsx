@@ -1,11 +1,10 @@
 // src/App.tsx
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import ThemeToggle from './components/ThemeToggle'
 import { WalletConnection } from './components/WalletConnection'
-import { ThemeProvider } from './components/ThemeContext'
 import { useWallet } from '@solana/wallet-adapter-react'
 import * as React from 'react'
 import { ExternalLink } from 'lucide-react'
+import { StyleSwitcher } from './components/StyleSwitcher'
 
 const HomePage = () => {
   return (
@@ -52,7 +51,7 @@ const HomePage = () => {
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold">Features Demo</h2>
         <ul className="list-disc list-inside space-y-2">
-          <li>Theme switching (try the sun/moon icon)</li>
+          <li>Theme switching (try the paint icon up top)</li>
           <li>Wallet connection modal with multiple wallet support</li>
           <li>Responsive wallet button with dropdown menu</li>
           <li>Protected content on the <a className="link" href="/dashboard">Dashboard page</a></li>
@@ -158,44 +157,43 @@ export const App: React.FC = () => {
   const { publicKey } = useWallet()
 
   return (
-    <ThemeProvider>
-      <Router>
-        <div className='min-h-screen bg-base-100 text-base-content'>
-          <nav className='navbar bg-base-200 p-4'>
-            <div className='container mx-auto'>
-              <div className='flex-1 flex items-center gap-4'>
+
+    <Router>
+      <div className='min-h-screen bg-base-100 text-base-content'>
+        <nav className='navbar bg-base-200 p-4'>
+          <div className='container mx-auto'>
+            <div className='flex-1 flex items-center gap-4'>
+              <Link
+                to='/'
+                className='flex items-center gap-2 hover:text-primary'
+              >
+                Home
+              </Link>
+              {publicKey && (
                 <Link
-                  to='/'
-                  className='flex items-center gap-2 hover:text-primary'
+                  to='/dashboard'
+                  className='hover:text-primary'
                 >
-                  Home
+                  Dashboard
                 </Link>
-                {publicKey && (
-                  <Link
-                    to='/dashboard'
-                    className='hover:text-primary'
-                  >
-                    Dashboard
-                  </Link>
-                )}
-              </div>
-
-              <div className='flex-none flex items-center gap-4'>
-                <ThemeToggle />
-                <WalletConnection />
-              </div>
+              )}
             </div>
-          </nav>
 
-          <main className='container mx-auto p-4'>
-            <Routes>
-              <Route path='/' element={<HomePage />} />
-              <Route path='/dashboard' element={<AuthenticatedContent />} />
-            </Routes>
-          </main>
-        </div>
-      </Router>
-    </ThemeProvider>
+            <div className='flex-none flex items-center gap-4'>
+              <StyleSwitcher />
+              <WalletConnection />
+            </div>
+          </div>
+        </nav>
+
+        <main className='container mx-auto p-4'>
+          <Routes>
+            <Route path='/' element={<HomePage />} />
+            <Route path='/dashboard' element={<AuthenticatedContent />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   )
 }
 
