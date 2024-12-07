@@ -1,22 +1,28 @@
 # Solana Wallet UI Branded
 
-A customizable Solana wallet adapter UI implementation with theming support. This repository provides a clean, modular approach to integrating Solana wallet connectivity with full control over the design.
+Take full control over your Solana wallet UI components. This repo demonstrates how to style the wallet adapter while maintaining clean separation of concerns.
 
 ## Overview
 
-This repo demonstrates how to take full design control over the Solana wallet adapter by creating a custom component structure. Instead of using the default Solana wallet UI components, we implement our own styled versions while maintaining all the functionality.
-
-Key features:
-
-- Custom wallet connection button
-- Styled wallet selection modal
-- Theme support (light/dark)
-- Clean component architecture
-- Framework-agnostic styling approach
+Instead of wrestling with the default Solana wallet UI styles buried in node_modules, this implementation provides direct control over every component. Includes several theme presets demonstrating the styling possibilities.
 
 ## Using This Repository
 
-### Option 1: As a Boilerplate
+There are three ways to use this codebase:
+
+### Option 1: Quick Start with create-solana-dapp
+
+The fastest way to get started:
+
+```bash
+npx create-solana-dapp@latest --template nothingdao/solana-wallet-ui-branded
+```
+
+This will create a new project with all dependencies installed and ready to run.
+
+### Option 2: Clone and Run
+
+If you want to run this repo directly:
 
 1. Clone the repository:
 
@@ -37,229 +43,136 @@ npm install
 npm run dev
 ```
 
-4. Customize the styling in `tailwind.config.js` to match your brand.
+### Option 3: Implementing in Your Existing Project
 
-### Option 2: Implementing in Your Existing Project
-
-Follow these steps to integrate the wallet UI system into your project:
+To integrate these components into your project:
 
 1. Install required dependencies:
 
 ```bash
-npm install @solana/web3.js @solana/wallet-adapter-react @solana/wallet-adapter-wallets @solana/wallet-adapter-react-ui
+npm install @solana/web3.js @solana/wallet-adapter-react @solana/wallet-adapter-wallets
 ```
 
-2. Create the component structure:
+2. Copy the core components from `src/components`:
 
-```
-src/
-  components/
-    WalletContext.jsx      # Wallet provider setup
-    WalletConnection.jsx   # Connection button component
-    WalletModal.jsx        # Wallet selection modal
-    ThemeContext.jsx       # (Optional) Theme provider
-    ThemeToggle.jsx        # (Optional) Theme toggle component
-```
+- WalletContext.tsx
+- WalletConnection.tsx
+- WalletModal.tsx
+- StyleContext.tsx (optional - for theme support)
+- StyleSwitcher.tsx (optional - for theme support)
 
-3. Set up the wallet context:
+3. Set up the providers in your app:
 
 ```tsx
-// src/components/WalletContext.tsx
-import React, { FC, useMemo, ReactNode } from 'react'
-import {
-  ConnectionProvider,
-  WalletProvider,
-} from '@solana/wallet-adapter-react'
-import {
-  PhantomWalletAdapter,
-  SolflareWalletAdapter,
-} from '@solana/wallet-adapter-wallets'
-import { clusterApiUrl } from '@solana/web3.js'
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base'
+import { WalletContextProvider } from './components/WalletContext'
+import { StyleProvider } from './components/StyleContext' // optional
 
-interface WalletContextProviderProps {
-  children: ReactNode
-  network?: WalletAdapterNetwork
-  endpoint?: string
-}
-
-export const WalletContextProvider: FC<WalletContextProviderProps> = ({
-  children,
-  network = WalletAdapterNetwork.Devnet,
-  endpoint = clusterApiUrl(WalletAdapterNetwork.Devnet),
-}) => {
-  const wallets = useMemo(
-    () => [new PhantomWalletAdapter(), new SolflareWalletAdapter()],
-    []
-  )
-
-  return (
-    <ConnectionProvider endpoint={endpoint}>
-      <WalletProvider
-        wallets={wallets}
-        autoConnect
-      >
-        {children}
-      </WalletProvider>
-    </ConnectionProvider>
-  )
-}
-```
-
-4. Wrap your app with the provider:
-
-```jsx
-// src/main.tsx or App.tsx
 function App() {
   return (
-    <WalletContextProvider>
-      <YourApp />
-    </WalletContextProvider>
+    <StyleProvider>
+      <WalletContextProvider>
+        <YourApp />
+      </WalletContextProvider>
+    </StyleProvider>
   )
 }
 ```
 
-5. Implement the connection button and modal components (see source files for full implementations)
+## Components
 
-### Styling Without Tailwind/DaisyUI
+### WalletConnection.tsx
 
-This implementation uses Tailwind CSS and DaisyUI for demonstration, but you can easily adapt it to any styling system:
+- Main connection button
+- Shows "Connect Wallet" or truncated address
+- Manages dropdown menu when connected
 
-1. Replace Tailwind classes with your preferred styling:
+### WalletModal.tsx
+
+- Wallet selection modal
+- Lists available wallets
+- Shows installation status
+
+### WalletContext.tsx
+
+- Sets up wallet providers
+- Configures network connection
+- Manages available wallets
+
+### Style Components (Optional)
+
+- StyleContext.tsx: Theme state management
+- StyleSwitcher.tsx: Theme preset selection
+
+## Theme Showcase
+
+The demo includes five distinct themes showing the styling possibilities:
+
+### Corporate
+
+Professional design with clean lines and subtle shadows.
+
+### Cyberpunk
+
+Neon gradients, glowing effects, and dark contrasts.
+
+### Minimal
+
+Black and white, clean typography, no decorative elements.
+
+### Playful
+
+Soft shadows, rounded corners, friendly animations.
+
+### Brutalist
+
+Raw HTML aesthetic with aggressive styling.
+
+## Styling System
+
+The demo uses Tailwind CSS and DaisyUI but works with any styling approach:
 
 ```jsx
-// With Tailwind
-<button className="btn btn-sm btn-primary flex items-center gap-2">
-
 // With CSS Modules
 <button className={styles.walletButton}>
 
 // With styled-components
 const WalletButton = styled.button`
-  // Your styles here
+  your-styles-here
 `
 
 // With plain CSS
 <button className="wallet-button">
 ```
 
-2. Key elements to style:
+## Customization
 
-- Connection button (connected/disconnected states)
-- Dropdown menu
-- Modal container
-- Wallet selection buttons
-- Theme toggle (if using)
-
-## Component Structure
-
-### WalletConnection.jsx
-
-- Main connection button
-- Handles wallet connection state
-- Displays connected wallet address
-- Manages dropdown menu
-
-### WalletModal.jsx
-
-- Wallet selection modal
-- Displays available wallets
-- Handles wallet selection
-- Shows installation status
-
-### WalletContext.jsx
-
-- Sets up wallet providers
-- Configures available wallets
-- Manages connection to Solana network
-
-### Theme Components (Optional)
-
-### Style Components
-
-- StyleContext.tsx: Manages theme state and persistence
-- StyleSwitcher.tsx: Switches between theme presets
-
-## Theme Showcase
-
-This repository includes several theme presets to demonstrate the styling flexibility of the wallet components:
-
-1. Corporate
-
-   - Professional design with clean lines
-   - Subtle shadows and gradients
-   - Business-friendly color scheme
-
-2. Cyberpunk
-
-   - Neon accents and glowing effects
-   - Dark background with high contrast
-   - Futuristic animations
-
-3. Minimal
-
-   - Black and white color scheme
-   - Clean typography
-   - No decorative elements
-
-4. Playful
-
-   - Soft shadows and rounded corners
-   - Friendly animations
-   - Vibrant colors
-
-5. Brutalist
-   - Raw HTML aesthetic
-   - Monospace fonts
-   - Aggressive animations
-
-Each theme showcases different approaches to styling the:
-
-- Wallet connection button
-- Dropdown menu
-- Modal backdrop
-- Wallet selection buttons
-- Installation badges
-
-## Customization Points
-
-1. Wallet Adapters:
+### Wallet Adapters
 
 ```jsx
-// WalletContext.tsx - Add/remove supported wallets
-const wallets = useMemo(
-  () => [
-    new PhantomWalletAdapter(),
-    new SolflareWalletAdapter(),
-    // Add more wallet adapters
-  ],
-  []
-)
+const wallets = [
+  new PhantomWalletAdapter(),
+  new SolflareWalletAdapter(),
+  // Add more wallets
+]
 ```
 
-2. Network Configuration:
+### Network Configuration
 
 ```jsx
-// WalletContext.tsx - Change Solana network
-const endpoint = useMemo(() => clusterApiUrl('mainnet-beta'), [])
+const endpoint = clusterApiUrl('mainnet-beta')
 ```
 
-3. Styling:
+### Behavior
 
-- Modify component classNames or styling system
-- Update theme configuration
-- Customize modal and button appearances
-
-4. Behavior:
-
-- Adjust auto-connect settings
-- Modify wallet address display format
-- Change modal behavior and animations
+- Auto-connect settings
+- Address display format
+- Modal animations
+- Theme persistence
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-MIT License - feel free to use this in your own projects!
+MIT License - use freely in your own projects.
