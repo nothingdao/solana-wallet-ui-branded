@@ -9,6 +9,17 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "create-solana-dapp": {
+    "instructions": [
+      "Customize your wallet UI:",
+      "+{pm} run dev",
+      "Edit tailwind.config.js to modify themes",
+      "See README.md for styling without Tailwind"
+    ],
+    "versions": {
+      "solana": "1.18.0"
+    }
+  },
   "dependencies": {
     "@solana/wallet-adapter-base": "^0.9.23",
     "@solana/wallet-adapter-react": "^0.15.35",
