@@ -175,8 +175,51 @@ const WalletButton = styled.button`
 
 ### Theme Components (Optional)
 
-- ThemeContext.jsx: Manages theme state
-- ThemeToggle.jsx: Toggles between themes
+### Style Components
+
+- StyleContext.tsx: Manages theme state and persistence
+- StyleSwitcher.tsx: Switches between theme presets
+
+## Theme Showcase
+
+This repository includes several theme presets to demonstrate the styling flexibility of the wallet components:
+
+1. Corporate
+
+   - Professional design with clean lines
+   - Subtle shadows and gradients
+   - Business-friendly color scheme
+
+2. Cyberpunk
+
+   - Neon accents and glowing effects
+   - Dark background with high contrast
+   - Futuristic animations
+
+3. Minimal
+
+   - Black and white color scheme
+   - Clean typography
+   - No decorative elements
+
+4. Playful
+
+   - Soft shadows and rounded corners
+   - Friendly animations
+   - Vibrant colors
+
+5. Brutalist
+   - Raw HTML aesthetic
+   - Monospace fonts
+   - Aggressive animations
+
+Each theme showcases different approaches to styling the:
+
+- Wallet connection button
+- Dropdown menu
+- Modal backdrop
+- Wallet selection buttons
+- Installation badges
 
 ## Customization Points
 
