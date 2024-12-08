@@ -1,5 +1,7 @@
 # Solana Wallet UI Branded
 
+<img width="1436" alt="Screen Shot 2024-12-07 at 5 08 11 PM" src="https://github.com/user-attachments/assets/fc81cd3e-9fa5-4fa0-9fe7-404bac77f646">
+
 Take full control over your Solana wallet UI components. This repo demonstrates how to style the wallet adapter while maintaining clean separation of concerns.
 
 ## Overview
